@@ -1,0 +1,101 @@
+{
+	"info": {
+		"_postman_id": "ddbddb67-8f91-47f3-a6db-18083db5e116",
+		"name": "Users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "{{api_url}}/api/users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d7f07d2b-26cd-4cdf-8193-af1ba4929016",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "dbba2031-e0b1-4f90-9c63-c8fa7f149e28",
+						"exec": [
+							"let random = +new Date();\r",
+							"\r",
+							"pm.globals.set(\"name\", `${random}-user`)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"job\": \"leader\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api_url}}/api/users",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{api_url}}/api/users/2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "85aaf8f8-6b0c-4986-bb8d-0d6a92d2900a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body validation for id value\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.id).to.eql(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api_url}}/api/users/2",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
