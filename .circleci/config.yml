@@ -10,4 +10,4 @@ jobs:
           collection: ./Users.postman_collection.json
           environment: ./My-ReqRes-API-Testing.postman_environment.json
       - store_test_results:
-          path: test-results
+          path: ./test-results
